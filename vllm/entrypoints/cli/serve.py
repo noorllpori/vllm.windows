@@ -3,7 +3,7 @@
 import argparse
 from typing import List
 
-import uvloop
+import winuvloop as uvloop
 
 from vllm.engine.arg_utils import EngineArgs
 from vllm.entrypoints.cli.types import CLISubcommand

@@ -18,7 +18,7 @@ from functools import partial
 from http import HTTPStatus
 from typing import Annotated, AsyncIterator, Dict, Optional, Set, Tuple, Union
 
-import uvloop
+import winuvloop as uvloop
 from fastapi import APIRouter, Depends, FastAPI, Form, HTTPException, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
@@ -902,9 +902,12 @@ def create_server_socket(addr: Tuple[str, int]) -> socket.socket:
 
     sock = socket.socket(family=family, type=socket.SOCK_STREAM)
     sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
-    sock.bind(addr)
 
+    import sys
+    if sys.platform != "win32":
+        sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
+
+    sock.bind(addr)
     return sock
 
 

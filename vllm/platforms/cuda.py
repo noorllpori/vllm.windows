@@ -12,7 +12,12 @@ import torch
 from typing_extensions import ParamSpec
 
 # import custom ops, trigger op registration
-import vllm._C  # noqa
+from vllm.logger import init_logger
+logger = init_logger(__name__)
+try:
+    import vllm._C  # noqa
+except ImportError as e:
+    logger.warning("Failed to import from vllm._C with %r", e)
 import vllm.envs as envs
 from vllm.logger import init_logger
 from vllm.utils import import_pynvml

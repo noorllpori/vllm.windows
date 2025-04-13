@@ -10,7 +10,7 @@ from typing import List
 
 import datasets
 import pandas as pd
-import uvloop
+import winuvloop as uvloop
 from transformers import AutoTokenizer, PreTrainedTokenizerBase
 
 from vllm.engine.arg_utils import AsyncEngineArgs, EngineArgs
